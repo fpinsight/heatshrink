@@ -1,0 +1,27 @@
+sudo: false
+language: c
+compiler: clang
+addons:
+  apt:
+    packages:
+    - libgmp-dev
+    - build-essential
+before_install:
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards
+  --strip-components=1 -C ~/.local/bin '*/stack'
+script:
+- stack --no-terminal --install-ghc test
+cache:
+  directories:
+  - "$HOME/.stack"
+deploy:
+  provider: hackage
+  username: Thierry
+  password:
+    secure: Pe2+9TtuECliQ/9BiLCuupw5csjG6LhoUbDBA6wUqeeKiAgwkP05CXU+vmrHp4MNqXoqAojEcOLxZcDcK+8lIRZNZY1t2hsEc/FdTXX1t3ugpaH8trZozCDaB6fCr6LPCjAdZg8kgOLv9w3LpyipDY0unQ16SEa3nscHgjDKpeJIVIQo0rvLAPXFO6lBnU/XLkOckh7kqhpIygu3MxNKDnJePQCW1KTC6zrazniioEjrHbrtTKjMwXK7BLbV6uLFhW7jKn6LZMqK3dBsJU0SAf7K2QhfUjJ7FlnQdEY0hNVT+VkuOjzjDN1PdzxhaeFA3O7B8TYKm2fVlW5vtn+wsYFp170mcJW7fidZFqsuNHD/h+Dv/NzjxD8H4ZPgZ1OUUIBSv4kDQI1XzuGiWp3m7qHVeqHadovnKKHA9PLfaoL7gQ513D8TahWhWpjXsX5FUxfNtyMwO+MysdBMbMQVHSV4WJ3O/KpBtt1hJd2trHWiWc1xt4+ZdVcq4Jzv9KMPiFH4g/qPwHpWMRT4M6oP6mfI+0VXxh90G3/ROHn5fi+IF2u5MpwgFuWVnmQpkrE+UfYSeUyvVO5DNp1jNc4OLZWvptgJOTm1VMXFHuXU2mN8qZDFacjbCqyhvGdki+oi/5TNwgueElGf/RpWQwVrfQL06DN+BkJrYczyhYIOTV8=
+  skip_cleanup: true
+  on:
+    repo: fpinsight/heatshrink
+    tags: true

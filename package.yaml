@@ -1,0 +1,58 @@
+name: heatshrink
+version: '0.1.0.0'
+synopsis: Compression and decompression using heatshrink
+description: Please see README.md
+category: FFI
+author: Thierry Bourrillon
+maintainer: thierry.bourrillon@fpinsight.com
+copyright: 2016 Thierry Bourrillon
+license: BSD3
+github: fpinsight/heatshrink
+
+extra-source-files:
+- README.md
+- cbits/heatshrink_common.h
+- cbits/heatshrink_config.h
+- cbits/heatshrink_decoder.h
+- cbits/heatshrink_encoder.h
+- files/*
+
+dependencies:
+- bytestring
+- cereal
+
+library:
+  source-dirs: src
+  c-sources:
+  - cbits/heatshrink_decoder.c
+  - cbits/heatshrink_encoder.c
+  ghc-options: -Wall
+  cc-options: -std=c11
+  include-dirs:
+  - cbits
+  build-tools:
+  - c2hs
+  exposed-modules:
+  - Codec.Compression.Heatshrink
+  other-modules:
+  - Codec.Compression.Heatshrink.Internal
+  dependencies:
+  - base >=4.7 && <5
+
+tests:
+  heatshrink-test:
+    main: Tests.hs
+    source-dirs: tests
+    ghc-options:
+    - -Wall
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - heatshrink
+    - pcre-heavy
+    - tasty
+    - tasty-golden
+    - tasty-hunit
+    - text
