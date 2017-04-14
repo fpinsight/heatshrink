@@ -1,4 +1,4 @@
-# heatshrink
+# Welcome to heatshrink
 
 [![build status](https://travis-ci.org/fpinsight/heatshrink.svg?branch=master)](https://travis-ci.org/fpinsight/heatshrink)
 
